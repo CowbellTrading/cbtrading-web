@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Recycle, Package, Tractor, BarChart2, Settings,
   ChevronDown, Menu, X,
@@ -81,7 +82,14 @@ export default function Navigation() {
 
           {/* ── Logo ── */}
           <Link href="/" onClick={close} className="nav-logo" aria-label="Cowbell Keystone — home">
-            <div className="nav-logo-mark" aria-hidden="true">CK</div>
+            <Image
+              src="/logo.svg"
+              alt="Cowbell Keystone Logo"
+              width={38}
+              height={46}
+              priority
+              className="nav-logo-img"
+            />
             <div className="nav-logo-text">
               <span className="nav-logo-name">Cowbell Keystone</span>
               <span className="nav-logo-sub">Trading Ireland Limited</span>
@@ -263,20 +271,12 @@ export default function Navigation() {
           text-decoration: none;
           flex-shrink: 0;
         }
-        .nav-logo-mark {
-          width: 38px;
-          height: 38px;
-          background: #16B583;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 4px;
-          font-weight: 800;
-          color: #fff;
-          font-size: 1rem;
-          font-family: 'DM Serif Display', serif;
-          letter-spacing: -.01em;
+        .nav-logo-img {
+          height: 46px;
+          width: auto;
           flex-shrink: 0;
+          object-fit: contain;
+          transition: height 200ms ease;
         }
         .nav-logo-text { line-height: 1.25; }
         .nav-logo-name {
@@ -466,6 +466,7 @@ export default function Navigation() {
            RESPONSIVE
         ═══════════════════════════════════════════ */
         @media (max-width: 768px) {
+          .nav-logo-img   { height: 42px; }
           .desktop-nav    { display: none !important; }
           .hamburger-btn  { display: flex !important; }
           .trust-bar      { display: none; }
@@ -478,6 +479,7 @@ export default function Navigation() {
           .mobile-drawer { display: none !important; }
         }
         @media (max-width: 480px) {
+          .nav-logo-img { height: 38px; }
           .nav-logo-sub { display: none; }
         }
       `}</style>

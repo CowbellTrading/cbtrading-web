@@ -20,14 +20,19 @@ export default function Footer() {
 
           {/* ── Brand ── */}
           <div className="footer-brand">
-            <Link href="/" aria-label="Cowbell Keystone — Home">
+            <Link href="/" aria-label="Cowbell Keystone — Home" className="footer-logo">
               <Image
                 src="/logo-white.svg"
-                alt="Cowbell Keystone Trading Ireland Limited"
-                width={200}
+                alt="Cowbell Keystone Trading Ireland Limited Logo"
+                width={38}
                 height={46}
                 style={{ height: 46, width: 'auto' }}
+                className="footer-logo-img"
               />
+              <div className="footer-logo-text">
+                <span className="footer-logo-name">Cowbell Keystone</span>
+                <span className="footer-logo-sub">Trading Ireland Limited</span>
+              </div>
             </Link>
             <p>
               Specialist trading company connecting European manufacturers and global suppliers

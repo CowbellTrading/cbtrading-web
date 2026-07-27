@@ -847,6 +847,37 @@ select.form-control {
   padding-bottom: 4rem;
   border-bottom: 1px solid rgba(255,255,255,.06);
 }
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  text-decoration: none;
+}
+.footer-logo-img {
+  height: 46px;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.footer-logo-text { line-height: 1.25; }
+.footer-logo-name {
+  display: block;
+  font-size: .875rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-family: var(--font-body);
+}
+.footer-logo-sub {
+  display: block;
+  font-size: .625rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .04em;
+  font-weight: 400;
+  font-family: var(--font-body);
+  margin-top: 1px;
+}
 .footer-brand p {
   font-size: .9375rem;
   color: rgba(255,255,255,.45);
