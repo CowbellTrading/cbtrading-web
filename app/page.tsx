@@ -17,8 +17,8 @@ const FALLBACK = {
   hero: {
     headline: 'Sustainable Industrial Trading &\nMaterial Supply Solutions',
     subtext: 'Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation.',
-    // Wind Turbines Sunset Field (Uploaded Asset — 2026-07-28)
-    image: '/images/hero-wind-turbines.jpg',
+    // Hero section image (user-uploaded, renamed from "Hero section.jpg")
+    image: '/images/hero-section.jpg',
     cta1: 'Explore Our Services',
     cta2: 'Request a Quote',
   },
@@ -105,7 +105,7 @@ export default async function Home() {
 
   const heroHeadline  = FALLBACK.hero.headline
   const heroSubtext   = FALLBACK.hero.subtext
-  const heroImageUrl  = homeData?.heroImage ? urlFor(homeData.heroImage).url() : '/images/hero-wind-turbines.jpg'
+  const heroImageUrl  = homeData?.heroImage ? urlFor(homeData.heroImage).url() : '/images/hero-section.jpg'
   const cta1          = homeData?.heroCta1Label || FALLBACK.hero.cta1
   const cta2          = homeData?.heroCta2Label || FALLBACK.hero.cta2
 
@@ -128,11 +128,11 @@ export default async function Home() {
         <div className="hero-photo">
           <SafeImage
             src={heroImageUrl}
-            alt="Wind turbines silhouetted against a golden sunset over an open field — sustainable industrial trading"
+            alt="Wind turbines at sunset over an open field — Cowbell Keystone Trading sustainable supply solutions"
             fill
             priority
             sizes="100vw"
-            quality={92}
+            quality={90}
             style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
           />
         </div>
