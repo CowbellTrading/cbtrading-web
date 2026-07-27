@@ -17,8 +17,8 @@ const FALLBACK = {
   hero: {
     headline: 'Sustainable Industrial Trading &\nMaterial Supply Solutions',
     subtext: 'Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation.',
-    // Wind Turbines Sunrise Landscape
-    image: '/images/wind_turbines_hero.jpg',
+    // Wind Turbines Sunset Landscape (Uploaded Asset)
+    image: '/images/hero_wind_turbines.jpg',
     cta1: 'Explore Our Services',
     cta2: 'Request a Quote',
   },
@@ -105,7 +105,7 @@ export default async function Home() {
 
   const heroHeadline  = FALLBACK.hero.headline
   const heroSubtext   = FALLBACK.hero.subtext
-  const heroImageUrl  = homeData?.heroImage ? urlFor(homeData.heroImage).url() : '/images/wind_turbines_hero.jpg'
+  const heroImageUrl  = homeData?.heroImage ? urlFor(homeData.heroImage).url() : '/images/hero_wind_turbines.jpg'
   const cta1          = homeData?.heroCta1Label || FALLBACK.hero.cta1
   const cta2          = homeData?.heroCta2Label || FALLBACK.hero.cta2
 
