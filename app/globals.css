@@ -168,11 +168,33 @@ p  { line-height: 1.8; color: var(--gray-500); }
 }
 
 .hero-photo { position: absolute; inset: 0; z-index: 0; }
+.hero-photo img {
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+@media (max-width: 1024px) {
+  .hero-photo img {
+    object-position: 55% 45%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-photo img {
+    object-position: 62% 48%;
+  }
+}
+
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+  background: linear-gradient(
+    180deg,
+    rgba(6, 15, 25, 0.52) 0%,
+    rgba(6, 15, 25, 0.46) 50%,
+    rgba(6, 15, 25, 0.55) 100%
+  );
 }
 .hero-content {
   position: relative;
