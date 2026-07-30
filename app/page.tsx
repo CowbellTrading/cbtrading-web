@@ -95,9 +95,9 @@ export default async function Home() {
   const homeData     = await getHomepage()
   const servicesData = await getAllServices()
 
-  const heroHeadline  = FALLBACK.hero.headline
-  const heroSubtext   = FALLBACK.hero.subtext
-  const heroImageUrl  = '/images/hero-section.jpg'
+  const heroHeadline  = homeData?.hero_headline  || FALLBACK.hero.headline
+  const heroSubtext   = homeData?.hero_subtext   || FALLBACK.hero.subtext
+  const heroImageUrl  = homeData?.hero_image_url || FALLBACK.hero.image
   const cta1          = homeData?.hero_cta1_label || FALLBACK.hero.cta1
   const cta2          = homeData?.hero_cta2_label || FALLBACK.hero.cta2
 
