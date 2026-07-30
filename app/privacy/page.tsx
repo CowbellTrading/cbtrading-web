@@ -30,7 +30,7 @@ export default function PrivacyPage() {
             <p>
               Cowbell Keystone Trading Ireland Limited (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is a company registered in Ireland.
               Our website is <a href="https://cbtrading.ie" style={{ color: 'var(--green-700)' }}>cbtrading.ie</a> and we can be contacted at{' '}
-              <a href="mailto:info@cbtrading.ie" style={{ color: 'var(--green-700)' }}>info@cbtrading.ie</a>.
+              <a href="mailto:info@cb-trading.ie" style={{ color: 'var(--green-700)' }}>info@cb-trading.ie</a>.
             </p>
 
             <h2 style={{ fontSize: '1.375rem', margin: '2rem 0 1rem' }}>2. What Data We Collect</h2>
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
               <li style={{ marginBottom: '.5rem' }}>Withdraw consent at any time.</li>
               <li style={{ marginBottom: '.5rem' }}>Lodge a complaint with the Data Protection Commission (Ireland).</li>
             </ul>
-            <p>To exercise any of these rights, contact us at <a href="mailto:info@cbtrading.ie" style={{ color: 'var(--green-700)' }}>info@cbtrading.ie</a>.</p>
+            <p>To exercise any of these rights, contact us at <a href="mailto:info@cb-trading.ie" style={{ color: 'var(--green-700)' }}>info@cb-trading.ie</a>.</p>
 
             <h2 style={{ fontSize: '1.375rem', margin: '2rem 0 1rem' }}>8. Cookies</h2>
             <p>
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
             <h2 style={{ fontSize: '1.375rem', margin: '2rem 0 1rem' }}>10. Contact</h2>
             <p>
               If you have any questions about this Privacy Policy, please contact us at{' '}
-              <a href="mailto:info@cbtrading.ie" style={{ color: 'var(--green-700)' }}>info@cbtrading.ie</a>.
+              <a href="mailto:info@cb-trading.ie" style={{ color: 'var(--green-700)' }}>info@cb-trading.ie</a>.
             </p>
 
           </div>

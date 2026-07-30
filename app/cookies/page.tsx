@@ -87,7 +87,7 @@ export default function CookiesPage() {
             <h2 style={{ fontSize: '1.375rem', margin: '2rem 0 1rem' }}>Contact</h2>
             <p>
               If you have questions about our use of cookies, contact us at{' '}
-              <a href="mailto:info@cbtrading.ie" style={{ color: 'var(--green-700)' }}>info@cbtrading.ie</a> or
+              <a href="mailto:info@cb-trading.ie" style={{ color: 'var(--green-700)' }}>info@cb-trading.ie</a> or
               see our <Link href="/privacy" style={{ color: 'var(--green-700)' }}>Privacy Policy</Link>.
             </p>
 

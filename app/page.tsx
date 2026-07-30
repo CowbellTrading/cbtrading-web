@@ -105,7 +105,7 @@ export default async function Home() {
 
   const heroHeadline  = FALLBACK.hero.headline
   const heroSubtext   = FALLBACK.hero.subtext
-  const heroImageUrl  = homeData?.heroImage ? urlFor(homeData.heroImage).url() : '/images/hero-section.jpg'
+  const heroImageUrl  = '/images/hero-section.jpg'
   const cta1          = homeData?.heroCta1Label || FALLBACK.hero.cta1
   const cta2          = homeData?.heroCta2Label || FALLBACK.hero.cta2
 
@@ -115,7 +115,6 @@ export default async function Home() {
 
   const sustainHeading  = homeData?.sustainHeading  || FALLBACK.sustainability.heading
   const sustainBody     = homeData?.sustainBody     || FALLBACK.sustainability.body
-  const sustainImageUrl = homeData?.sustainImage    ? urlFor(homeData.sustainImage).url() : '/images/sustainability_hero.png'
 
   const services = (servicesData?.length ? servicesData : FALLBACK.services).slice(0, 5)
 
@@ -241,10 +240,7 @@ export default async function Home() {
           6. SUSTAINABILITY
       ═══════════════════════════════════ */}
       <section className="sustain">
-        <div className="sustain-photo">
-          <SafeImage src={sustainImageUrl} fallbackSrc="/images/sustainability_hero.png" alt="Sustainability initiatives" fill sizes="100vw" quality={100} style={{ objectFit: 'cover' }} />
-          <div className="sustain-overlay" />
-        </div>
+        <div className="sustain-overlay" />
         <div className="sustain-inner container">
           <div style={{ maxWidth: 640 }}>
             <span className="section-label">Sustainability</span>
@@ -269,6 +265,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
 
       {/* ═══════════════════════════════════
           7. CTA STRIP

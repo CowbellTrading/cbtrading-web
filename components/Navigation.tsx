@@ -86,7 +86,7 @@ export default function Navigation() {
               src="/logo.svg"
               alt="Cowbell Keystone Logo"
               width={38}
-              height={46}
+              height={40}
               priority
               className="nav-logo-img"
             />
@@ -206,10 +206,10 @@ export default function Navigation() {
           z-index: 1001;
         }
         .trust-bar-inner {
-          max-width: 1280px;
+          max-width: 1440px;
           margin: 0 auto;
-          padding: 0 2rem;
-          height: 40px;
+          padding: 0 3rem;
+          height: 36px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -251,9 +251,9 @@ export default function Navigation() {
            NAV INNER LAYOUT
         ═══════════════════════════════════════════ */
         .nav-inner {
-          max-width: 1280px;
+          max-width: 1440px;
           margin: 0 auto;
-          padding: 0 2rem;
+          padding: 0 3rem;
           height: 100%;
           display: flex;
           align-items: center;
@@ -272,7 +272,7 @@ export default function Navigation() {
           flex-shrink: 0;
         }
         .nav-logo-img {
-          height: 46px;
+          height: 40px;
           width: auto;
           flex-shrink: 0;
           object-fit: contain;
@@ -466,7 +466,7 @@ export default function Navigation() {
            RESPONSIVE
         ═══════════════════════════════════════════ */
         @media (max-width: 768px) {
-          .nav-logo-img   { height: 42px; }
+          .nav-logo-img   { height: 36px; }
           .desktop-nav    { display: none !important; }
           .hamburger-btn  { display: flex !important; }
           .trust-bar      { display: none; }
@@ -474,12 +474,20 @@ export default function Navigation() {
           .nav-inner      { padding: 0 1.25rem; gap: 1rem; }
           .mobile-drawer  { top: 72px; }
         }
+        @media (min-width: 769px) and (max-width: 1023px) {
+          .trust-bar-inner { padding: 0 2rem; }
+          .nav-inner { padding: 0 2rem; }
+        }
+        @media (min-width: 1440px) {
+          .trust-bar-inner { padding: 0 4rem; }
+          .nav-inner { padding: 0 4rem; }
+        }
         @media (min-width: 769px) {
           .hamburger-btn { display: none !important; }
           .mobile-drawer { display: none !important; }
         }
         @media (max-width: 480px) {
-          .nav-logo-img { height: 38px; }
+          .nav-logo-img { height: 34px; }
           .nav-logo-sub { display: none; }
         }
       `}</style>

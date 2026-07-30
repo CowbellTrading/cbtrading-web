@@ -104,7 +104,7 @@ export default function Footer() {
               <span className="footer-contact-icon" aria-hidden="true">
                 <Mail size={15} strokeWidth={1.5} />
               </span>
-              <a href="mailto:info@cbtrading.ie">info@cbtrading.ie</a>
+              <a href="mailto:info@cb-trading.ie">info@cb-trading.ie</a>
             </div>
             <div className="footer-contact-item" style={{ marginTop: '0.5rem' }}>
               <span className="footer-contact-icon" aria-hidden="true">

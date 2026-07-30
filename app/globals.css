@@ -37,13 +37,13 @@
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Layout */
-  --max-w:        1280px;
+  --max-w:        1440px;
   --nav-h:        80px;
-  --trust-h:      40px;
+  --trust-h:      36px;
   /* With sticky nav, header-h is just the nav height for inner-page offsets */
   --header-h:     80px;
-  --gutter:       clamp(1.25rem, 4vw, 2rem);
-  --section-py:   clamp(5rem, 8vw, 8rem);
+  --gutter:       3rem;       /* 48px default desktop — overridden per breakpoint */
+  --section-py:   clamp(4rem, 7vw, 7rem);
 
   /* Transitions */
   --t-fast: 150ms ease;
@@ -90,7 +90,7 @@ h4 { font-size: 1.0625rem; }
 p  { line-height: 1.8; color: var(--gray-500); }
 
 /* ── Layout ── */
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); width: 100%; }
 .section { padding: var(--section-py) 0; }
 .section-gray  { background: var(--gray-50); }
 .section-green { background: var(--green-800); }
@@ -202,8 +202,8 @@ p  { line-height: 1.8; color: var(--gray-500); }
   width: 100%;
   /* Nav is sticky so hero starts naturally below it — no offset needed.
      Internal padding only for visual breathing room. */
-  padding-top: 6rem;
-  padding-bottom: 7rem;
+  padding-top: 5rem;
+  padding-bottom: 6rem;
   max-width: var(--max-w);
   margin: 0 auto;
   padding-left: var(--gutter);
@@ -285,7 +285,8 @@ p  { line-height: 1.8; color: var(--gray-500); }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(3rem, 6vw, 6rem) clamp(2.5rem, 5vw, 5rem);
+  /* Left pad = grid gutter. Right pad tapers inward toward the center. */
+  padding: clamp(3rem, 5vw, 5.5rem) clamp(2rem, 3vw, 4rem) clamp(3rem, 5vw, 5.5rem) max(var(--gutter), calc((100vw - var(--max-w)) / 2 + var(--gutter)));
 }
 .split-content h2 { margin-bottom: 1.25rem; color: var(--gray-900); }
 .split-content p { font-size: 1.0625rem; color: var(--gray-500); line-height: 1.8; margin-bottom: 2rem; }
@@ -521,24 +522,31 @@ p  { line-height: 1.8; color: var(--gray-500); }
   min-height: 600px;
   display: flex;
   align-items: center;
-  background: var(--green-900);
   overflow: hidden;
+  background-image: url('/images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.sustain-photo { position: absolute; inset: 0; z-index: 0; opacity: 1; }
 .sustain-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, rgba(4, 30, 20, 0.95) 0%, rgba(4, 30, 20, 0.85) 30%, rgba(22, 181, 131, 0.6) 60%, rgba(0,0,0,0) 100%);
+  /* Green-tinted frosted layer: light green color + blur so image stays visible */
+  background: rgba(13, 59, 46, 0.38);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
-.sustain-inner { position: relative; z-index: 2; padding: 6rem 0; width: 100%; }
+.sustain-inner { position: relative; z-index: 2; padding: 5rem 0; width: 100%; }
 .sustain-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
 .sustain-feature { border-left: 2px solid rgba(22,181,131,.5); padding-left: 1.5rem; }
 .sustain-feature h4 { color: var(--white); margin-bottom: .5rem; font-size: 1rem; }
 .sustain-feature p  { font-size: .875rem; color: rgba(255,255,255,.6); margin: 0; line-height: 1.7; }
 
+
+
 /* ── CTA Section ── */
-.cta-section { background: var(--navy-900); padding: 5.5rem 0; text-align: center; }
+.cta-section { background: var(--navy-900); padding: var(--section-py) 0; text-align: center; }
 .cta-section h2 { color: var(--white); margin-bottom: 1.25rem; }
 .cta-section .lead { color: rgba(255,255,255,.65); max-width: 520px; margin: 0 auto 2.5rem; font-size: 1.0625rem; line-height: 1.75; }
 
@@ -1033,8 +1041,14 @@ select.form-control {
 .reveal-delay-4 { transition-delay: .32s; }
 .reveal-delay-5 { transition-delay: .40s; }
 
+/* ── Responsive: ≥1440px — wide desktop gutter ── */
+@media (min-width: 1440px) {
+  :root { --gutter: 4rem; } /* 64px */
+}
+
 /* ── Responsive: 1024px ── */
 @media (max-width: 1024px) {
+  :root { --gutter: 2rem; } /* 32px tablet */
   .hero { min-height: 80vh; min-height: 80svh; }
   .service-strip-inner { grid-template-columns: repeat(3, 1fr); }
   .trust-cards-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1053,6 +1067,7 @@ select.form-control {
     --nav-h: 72px;
     --trust-h: 0px;
     --header-h: 72px;   /* trust bar hidden on mobile */
+    --gutter: 1.25rem; /* 20px mobile */
   }
   .hero { min-height: 75vh; min-height: 75svh; }
   .split { grid-template-columns: 1fr; min-height: auto; }

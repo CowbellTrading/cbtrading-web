@@ -21,7 +21,7 @@ export default async function ContactPage() {
     : 'Kilmartin Grove, Republic of Ireland, D15 AX0H'
   
   const phone = settings?.phone || '+353 89 489 8717'
-  const email = settings?.email || 'info@cbtrading.ie'
+  const email = settings?.email || 'info@cb-trading.ie'
 
   return (
     <>
