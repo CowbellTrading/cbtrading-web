@@ -3,10 +3,11 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // Supabase Storage — replace YOUR_PROJECT_REF with your actual ref once known
       {
         protocol: 'https',
-        hostname: 'cdn.sanity.io',
-        pathname: '/images/**',
+        hostname: '*.supabase.co',
+        pathname: '/storage/v1/object/public/**',
       },
       {
         protocol: 'https',

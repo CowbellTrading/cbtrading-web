@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Search, FileText, Download, BookOpen, BarChart2, Truck } from 'lucide-react'
+import type { ResourceRow } from '@/lib/supabase/types'
 
 const CATEGORIES = ['All', 'Technical Datasheets', 'Product Catalogues', 'Material Certifications', 'Sustainability Reports', 'Machinery Brochures', 'Consulting Guides']
 
@@ -108,28 +109,38 @@ function formatBytes(bytes?: number) {
 }
 
 interface Props {
-  sanityResources?: ResourceItem[]
+  resources?: ResourceRow[]
 }
 
-export default function ResourcesClient({ sanityResources = [] }: Props) {
+// Map Supabase DB enum values → UI display strings used by CATEGORIES & getCategoryIcon
+const CATEGORY_MAP: Record<string, string> = {
+  datasheets:      'Technical Datasheets',
+  catalogues:      'Product Catalogues',
+  certifications:  'Material Certifications',
+  sustainability:  'Sustainability Reports',
+  machinery:       'Machinery Brochures',
+  consulting:      'Consulting Guides',
+}
+
+export default function ResourcesClient({ resources = [] }: Props) {
   const [search, setSearch]     = useState('')
   const [active, setActive]     = useState('All')
 
   const combinedResources = useMemo(() => {
-    if (sanityResources && sanityResources.length > 0) {
-      return sanityResources.map(r => ({
-        id: r._id || r.id || Math.random().toString(),
+    if (resources.length > 0) {
+      return resources.map(r => ({
+        id: r.id,
         title: r.title,
-        category: r.category,
-        description: r.description,
-        date: r.publishedAt ? r.publishedAt.substring(0, 7) : (r.date || '2024-01'),
-        gated: r.gated || false,
-        fileUrl: r.fileUrl,
-        fileSize: r.fileSize
+        category: CATEGORY_MAP[r.category] || r.category,
+        description: r.description || '',
+        date: r.published_at ? r.published_at.substring(0, 7) : '2024-01',
+        gated: r.gated,
+        fileUrl: r.file_url,
+        fileSize: r.file_size ?? undefined,
       }))
     }
     return RESOURCES
-  }, [sanityResources])
+  }, [resources])
 
   const filtered = useMemo(() => {
     return combinedResources.filter(r => {

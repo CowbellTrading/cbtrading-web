@@ -3,9 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import SafeImage from '@/components/SafeImage'
 import { ArrowRight, CheckCircle } from 'lucide-react'
-import { client } from '@/sanity/lib/client'
-import { serviceBySlugQuery, productsByServiceQuery, allServicesQuery } from '@/sanity/lib/queries'
-import { urlFor } from '@/sanity/lib/image'
+import { getServiceBySlug, getProductsByServiceSlug } from '@/lib/supabase'
 import { PortableText } from '@portabletext/react'
 import ContactForm from '@/components/ContactForm'
 import {
@@ -169,11 +167,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const fb = SERVICE_FALLBACKS[slug]
   if (!fb) return {}
-  let data = null
-  try { data = await client.fetch(serviceBySlugQuery, { slug }) } catch {}
+  const data = await getServiceBySlug(slug)
   return {
-    title: data?.metaTitle || fb.title,
-    description: data?.metaDescription || fb.summary,
+    title: data?.meta_title || fb.title,
+    description: data?.meta_description || fb.summary,
   }
 }
 
@@ -183,22 +180,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const fb = SERVICE_FALLBACKS[slug]
   if (!fb) notFound()
 
-  let serviceData = null
-  let productsData = null
-  try {
-    serviceData  = await client.fetch(serviceBySlugQuery, { slug })
-    productsData = await client.fetch(productsByServiceQuery, { slug })
-  } catch {}
+  // Supabase queries — return null/[] gracefully on error
+  const serviceData  = await getServiceBySlug(slug)
+  const productsData = await getProductsByServiceSlug(slug)
 
   const title       = serviceData?.title       || fb.title
   const summary     = serviceData?.summary     || fb.summary
-  const heroImageUrl= serviceData?.heroImage   ? urlFor(serviceData.heroImage).url() : fb.image
+  const heroImageUrl= serviceData?.hero_image_url || fb.image
   const overview    = serviceData?.overview
   const features    = (serviceData?.features?.length ? serviceData.features : fb.features)
-  const industries  = (serviceData?.industriesServed?.length ? serviceData.industriesServed : fb.industriesServed)
-  const whyCowbell  = serviceData?.whyCowbell  || fb.whyCowbell
-
-  const allSvc = await client.fetch(allServicesQuery).catch(() => [])
+  const industries  = (serviceData?.industries_served?.length ? serviceData.industries_served : fb.industriesServed)
+  const whyCowbell  = serviceData?.why_cowbell  || fb.whyCowbell
 
   return (
     <>
@@ -242,7 +234,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <h2 style={{ marginBottom: '1.5rem' }}>What We Offer</h2>
               {overview ? (
                 <div style={{ color: 'var(--gray-600)', lineHeight: 1.85, fontSize: '1.0625rem', marginBottom: '3rem' }}>
-                  <PortableText value={overview} />
+                  {Array.isArray(overview)
+                    ? <PortableText value={overview} />
+                    : <p>{overview as string}</p>
+                  }
                 </div>
               ) : (
                 <p style={{ fontSize: '1.0625rem', marginBottom: '3rem', lineHeight: 1.85 }}>{fb.overview}</p>
@@ -264,13 +259,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 ))}
               </div>
 
-              {/* Products (if any in Sanity) */}
-              {productsData?.length > 0 && (
+              {/* Products (if any in Supabase) */}
+              {productsData.length > 0 && (
                 <>
                   <h3 style={{ marginBottom: '1.5rem' }}>Products</h3>
                   <div className="products-grid" style={{ marginBottom: '3rem' }}>
-                    {productsData.map((p: { _id: string; name: string; grade?: string; description: string; applications?: string[]; datasheetUrl?: string }) => (
-                      <div className="product-card" key={p._id}>
+                    {productsData.map((p) => (
+                      <div className="product-card" key={p.id}>
                         <h4>{p.name}</h4>
                         {p.grade && <span className="product-grade">{p.grade}</span>}
                         <p>{p.description}</p>
@@ -281,8 +276,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                             ))}
                           </div>
                         )}
-                        {p.datasheetUrl && (
-                          <a href={p.datasheetUrl} target="_blank" rel="noopener noreferrer" className="product-datasheet">
+                        {p.datasheet_url && (
+                          <a href={p.datasheet_url} target="_blank" rel="noopener noreferrer" className="product-datasheet">
                             Download Datasheet <ArrowRight size={12} />
                           </a>
                         )}

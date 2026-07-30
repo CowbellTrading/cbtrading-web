@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import ResourcesClient from './ResourcesClient'
-import { client } from '@/sanity/lib/client'
-import { allResourcesQuery } from '@/sanity/lib/queries'
+import { getAllResources } from '@/lib/supabase'
 
 export const revalidate = 60
 
@@ -11,12 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ResourcesPage() {
-  let sanityResources = []
-  try {
-    sanityResources = await client.fetch(allResourcesQuery)
-  } catch (e) {
-    // silently fail and fallback to client-side static
-  }
-
-  return <ResourcesClient sanityResources={sanityResources} />
+  // getAllResources() returns [] gracefully on error — ResourcesClient uses local fallback
+  const resources = await getAllResources()
+  return <ResourcesClient resources={resources} />
 }

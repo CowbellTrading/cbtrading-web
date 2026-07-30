@@ -19,19 +19,18 @@ import {
   CheckCircle,
   Briefcase
 } from 'lucide-react'
-import { client } from '@/sanity/lib/client'
-import { aboutCompanyQuery } from '@/sanity/lib/queries'
+import { getAboutCompany } from '@/lib/supabase'
 import { PortableText } from '@portabletext/react'
 
 export const revalidate = 60
 
 const FALLBACK_VALUES = [
-  { title: 'Direct Supplier Sourcing', desc: 'Connecting you directly with vetted global manufacturers.' },
-  { title: 'Quality Assurance', desc: 'Rigorous verification processes to ensure product excellence.' },
-  { title: 'Customs Clearance', desc: 'Seamless customs management for frictionless trade.' },
-  { title: 'End-to-End Logistics', desc: 'Comprehensive coordination from port to customer delivery.' },
-  { title: 'Sustainable Solutions', desc: 'Championing circular economy and eco-friendly alternatives.' },
-  { title: 'Reliable Partnerships', desc: 'Building long-term, trusted international trading relationships.' },
+  { title: 'Direct Supplier Sourcing', description: 'Connecting you directly with vetted global manufacturers.' },
+  { title: 'Quality Assurance', description: 'Rigorous verification processes to ensure product excellence.' },
+  { title: 'Customs Clearance', description: 'Seamless customs management for frictionless trade.' },
+  { title: 'End-to-End Logistics', description: 'Comprehensive coordination from port to customer delivery.' },
+  { title: 'Sustainable Solutions', description: 'Championing circular economy and eco-friendly alternatives.' },
+  { title: 'Reliable Partnerships', description: 'Building long-term, trusted international trading relationships.' },
 ]
 
 const COMPANY_STATS = [
@@ -66,28 +65,23 @@ const TRUST_FACTORS = [
 ]
 
 export async function generateMetadata(): Promise<Metadata> {
-  let data = null
-  try { data = await client.fetch(aboutCompanyQuery) } catch {}
+  const data = await getAboutCompany()
   return {
-    title: data?.metaTitle || 'About Us',
-    description: data?.metaDescription || 'Learn about Cowbell Keystone Trading Ireland Limited — our story, mission, values, and the European B2B trading expertise we bring to Ireland and Spain.',
+    title: data?.meta_title || 'About Us',
+    description: data?.meta_description || 'Learn about Cowbell Keystone Trading Ireland Limited — our story, mission, values, and the European B2B trading expertise we bring to Ireland and Spain.',
   }
 }
 
 export default async function AboutPage() {
-  let data = null
-  try { data = await client.fetch(aboutCompanyQuery) } catch {}
+  const data = await getAboutCompany()
 
   const heading = data?.heading || 'Our Story'
-  const leadText = data?.leadText || 'A specialist B2B trading partner connecting European industrial suppliers with businesses across Ireland and Spain.'
-  const introHeading = data?.introHeading || 'Bridging European Supply Chains'
-  const introBody = data?.introBody
-  
-  // Use proper Sanity image resolution to fix broken image issue
-  const introImage = typeof data?.introImage === 'string' ? data.introImage : '/images/about_company.png'
-  
-  const missionHeading = data?.missionHeading || 'Making European Trade Simpler'
-  const missionBody = data?.missionBody || 'We exist to remove friction from B2B trade. Whether that means sourcing the right polymer grade, managing customs documentation, or identifying a more cost-effective packaging format — our mission is to help your business operate more efficiently and profitably across European markets.'
+  const leadText = data?.lead_text || 'A specialist B2B trading partner connecting European industrial suppliers with businesses across Ireland and Spain.'
+  const introHeading = data?.intro_heading || 'Bridging European Supply Chains'
+  const introBody = data?.intro_body
+  const introImage = data?.intro_image_url || '/images/about_company.png'
+  const missionHeading = data?.mission_heading || 'Making European Trade Simpler'
+  const missionBody = data?.mission_body || 'We exist to remove friction from B2B trade. Whether that means sourcing the right polymer grade, managing customs documentation, or identifying a more cost-effective packaging format — our mission is to help your business operate more efficiently and profitably across European markets.'
   const values = data?.values?.length ? data.values : FALLBACK_VALUES
 
   return (
@@ -115,7 +109,10 @@ export default async function AboutPage() {
               
               {introBody ? (
                 <div style={{ fontSize: '1.0625rem', color: 'var(--gray-600)', lineHeight: 1.85, marginBottom: '2.5rem' }}>
-                  <PortableText value={introBody} />
+                  {Array.isArray(introBody)
+                    ? <PortableText value={introBody} />
+                    : <p>{introBody as string}</p>
+                  }
                 </div>
               ) : (
                 <>
@@ -175,13 +172,13 @@ export default async function AboutPage() {
           </div>
           
           <div className="values-grid">
-            {values.map((v: {title: string, description: string, desc?: string}, i: number) => (
+            {values.map((v: { title: string; description: string }, i: number) => (
               <div className="value-card" key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
                 <div className="value-card-icon" style={{ marginBottom: '1.25rem', width: '48px', height: '48px', borderRadius: 'var(--r-md)' }}>
                   <CheckCircle size={22} strokeWidth={1.5} color="currentColor" />
                 </div>
                 <h4 style={{ marginBottom: '0.75rem', fontSize: '1.125rem' }}>{v.title}</h4>
-                <p style={{ flex: 1, color: 'var(--gray-500)', lineHeight: 1.7, margin: 0 }}>{v.description || v.desc}</p>
+                <p style={{ flex: 1, color: 'var(--gray-500)', lineHeight: 1.7, margin: 0 }}>{v.description}</p>
               </div>
             ))}
           </div>

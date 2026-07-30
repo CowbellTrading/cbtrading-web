@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import SafeImage from '@/components/SafeImage'
-import { client } from '@/sanity/lib/client'
-import { homepageQuery, allServicesQuery } from '@/sanity/lib/queries'
-import { urlFor } from '@/sanity/lib/image'
+import { getHomepage, getAllServices } from '@/lib/supabase'
 import { PortableText } from '@portabletext/react'
 import {
   Recycle, Package, Tractor, BarChart2, Settings,
@@ -93,30 +91,24 @@ const TRUST_CARDS = [
 
 /* ─────────────── Page ─────────────── */
 export default async function Home() {
-  let homeData = null
-  let servicesData = null
-
-  try {
-    homeData    = await client.fetch(homepageQuery)
-    servicesData = await client.fetch(allServicesQuery)
-  } catch (e) {
-    console.error('Sanity fetch failed, using fallback data', e)
-  }
+  // Supabase queries — return null/[] on error, pages use fallback data
+  const homeData     = await getHomepage()
+  const servicesData = await getAllServices()
 
   const heroHeadline  = FALLBACK.hero.headline
   const heroSubtext   = FALLBACK.hero.subtext
   const heroImageUrl  = '/images/hero-section.jpg'
-  const cta1          = homeData?.heroCta1Label || FALLBACK.hero.cta1
-  const cta2          = homeData?.heroCta2Label || FALLBACK.hero.cta2
+  const cta1          = homeData?.hero_cta1_label || FALLBACK.hero.cta1
+  const cta2          = homeData?.hero_cta2_label || FALLBACK.hero.cta2
 
-  const aboutHeading  = homeData?.aboutHeading  || FALLBACK.about.heading
-  const aboutBody     = homeData?.aboutBody
-  const aboutImageUrl = homeData?.aboutImage    ? urlFor(homeData.aboutImage).url() : FALLBACK.about.image
+  const aboutHeading  = homeData?.about_heading  || FALLBACK.about.heading
+  const aboutBody     = homeData?.about_body
+  const aboutImageUrl = homeData?.about_image_url || FALLBACK.about.image
 
-  const sustainHeading  = homeData?.sustainHeading  || FALLBACK.sustainability.heading
-  const sustainBody     = homeData?.sustainBody     || FALLBACK.sustainability.body
+  const sustainHeading  = homeData?.sustain_heading  || FALLBACK.sustainability.heading
+  const sustainBody     = homeData?.sustain_body     || FALLBACK.sustainability.body
 
-  const services = (servicesData?.length ? servicesData : FALLBACK.services).slice(0, 5)
+  const services = (servicesData.length ? servicesData : FALLBACK.services).slice(0, 5)
 
   return (
     <>
@@ -182,7 +174,10 @@ export default async function Home() {
           <h2>{aboutHeading}</h2>
           {aboutBody ? (
             <div style={{ color: 'var(--gray-500)', lineHeight: 1.8, marginBottom: '2rem' }}>
-              <PortableText value={aboutBody} />
+              {Array.isArray(aboutBody)
+                ? <PortableText value={aboutBody} />
+                : <p>{aboutBody as string}</p>
+              }
             </div>
           ) : (
             <p style={{ marginBottom: '2rem' }}>{FALLBACK.about.body}</p>

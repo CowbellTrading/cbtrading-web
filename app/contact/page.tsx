@@ -2,8 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import ContactForm from '@/components/ContactForm'
 import { MapPin, Mail, Globe, ExternalLink, Phone } from 'lucide-react'
-import { client } from '@/sanity/lib/client'
-import { siteSettingsQuery } from '@/sanity/lib/queries'
+import { getSiteSettings } from '@/lib/supabase'
 
 export const revalidate = 60
 
@@ -13,8 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactPage() {
-  let settings = null
-  try { settings = await client.fetch(siteSettingsQuery) } catch {}
+  const settings = await getSiteSettings()
 
   const address = settings?.address1 && settings?.city 
     ? `${settings.address1}${settings.address2 ? `, ${settings.address2}` : ''}, ${settings.city}${settings.country ? `, ${settings.country}` : ''}`
