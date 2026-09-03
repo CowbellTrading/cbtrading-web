@@ -42,6 +42,15 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  icons: {
+    icon: [
+      { url: '/logo-dark.png', type: 'image/png' },
+      { url: '/logo.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/logo-dark.png',
+    apple: '/logo-dark.png',
+  },
   alternates: {
     canonical: 'https://cbtrading.ie',
   },
