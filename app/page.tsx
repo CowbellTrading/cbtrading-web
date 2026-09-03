@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SafeImage from '@/components/SafeImage'
+import IndustryPartners from '@/components/IndustryPartners'
 import { getHomepage, getAllServices } from '@/lib/supabase'
 import { PortableText } from '@portabletext/react'
 import {
@@ -35,10 +36,10 @@ const FALLBACK = {
     image: '/images/sustainability_banner.png',
   },
   services: [
-    { slug: 'plastic-raw-materials',    title: 'Plastic Raw Materials',    summary: 'High-quality virgin and recycled polymers for manufacturing.' },
-    { slug: 'packaging-solutions',      title: 'Packaging Solutions',      summary: 'Industrial and commercial packaging materials.' },
-    { slug: 'forklift-leasing',         title: 'Forklift Leasing',         summary: 'Flexible material handling equipment solutions.' },
-    { slug: 'consulting-services',      title: 'Consulting Services',      summary: 'Supply chain optimization and market entry strategy.' },
+    { slug: 'plastic-raw-materials', title: 'Plastic Raw Materials', summary: 'High-quality virgin and recycled polymers for manufacturing.' },
+    { slug: 'packaging-solutions', title: 'Packaging Solutions', summary: 'Industrial and commercial packaging materials.' },
+    { slug: 'forklift-leasing', title: 'Forklift Leasing', summary: 'Flexible material handling equipment solutions.' },
+    { slug: 'consulting-services', title: 'Consulting Services', summary: 'Supply chain optimization and market entry strategy.' },
     { slug: 'machinery-representation', title: 'Machinery Representation', summary: 'European industrial machinery sourcing.' },
   ],
 }
@@ -47,38 +48,38 @@ const FALLBACK = {
 function getServiceIcon(slug: string) {
   const props = { size: 22, strokeWidth: 1.5 }
   switch (slug) {
-    case 'plastic-raw-materials':    return <Recycle   {...props} />
-    case 'packaging-solutions':      return <Package   {...props} />
-    case 'forklift-leasing':         return <Tractor   {...props} />
-    case 'consulting-services':      return <BarChart2 {...props} />
+    case 'plastic-raw-materials': return <Recycle   {...props} />
+    case 'packaging-solutions': return <Package   {...props} />
+    case 'forklift-leasing': return <Tractor   {...props} />
+    case 'consulting-services': return <BarChart2 {...props} />
     case 'machinery-representation': return <Settings  {...props} />
-    default:                         return <Package   {...props} />
+    default: return <Package   {...props} />
   }
 }
 
 const INDUSTRY_ICONS = [
-  { icon: <Factory     size={22} strokeWidth={1.5} />, label: 'Manufacturing' },
-  { icon: <Package     size={22} strokeWidth={1.5} />, label: 'Packaging' },
-  { icon: <Truck       size={22} strokeWidth={1.5} />, label: 'Logistics' },
-  { icon: <HardHat     size={22} strokeWidth={1.5} />, label: 'Construction' },
+  { icon: <Factory size={22} strokeWidth={1.5} />, label: 'Manufacturing' },
+  { icon: <Package size={22} strokeWidth={1.5} />, label: 'Packaging' },
+  { icon: <Truck size={22} strokeWidth={1.5} />, label: 'Logistics' },
+  { icon: <HardHat size={22} strokeWidth={1.5} />, label: 'Construction' },
   { icon: <FlaskConical size={22} strokeWidth={1.5} />, label: 'Consumer Goods' },
-  { icon: <Wheat       size={22} strokeWidth={1.5} />, label: 'Agriculture' },
+  { icon: <Wheat size={22} strokeWidth={1.5} />, label: 'Agriculture' },
 ]
 
 /* Trust cards data — no unverified statistics */
 const TRUST_CARDS = [
   {
-    icon: <MapPin     size={20} strokeWidth={1.5} />,
+    icon: <MapPin size={20} strokeWidth={1.5} />,
     title: 'Ireland Based',
     desc: 'Headquartered in Ireland with deep local knowledge and established business relationships.',
   },
   {
-    icon: <Globe      size={20} strokeWidth={1.5} />,
+    icon: <Globe size={20} strokeWidth={1.5} />,
     title: 'European Market Focus',
     desc: 'Primary focus on Ireland and Spain, with a growing pan-European supplier and client network.',
   },
   {
-    icon: <Container  size={20} strokeWidth={1.5} />,
+    icon: <Container size={20} strokeWidth={1.5} />,
     title: 'Global Supplier Network',
     desc: 'Connected to international manufacturers delivering consistent quality and supply security.',
   },
@@ -92,21 +93,21 @@ const TRUST_CARDS = [
 /* ─────────────── Page ─────────────── */
 export default async function Home() {
   // Supabase queries — return null/[] on error, pages use fallback data
-  const homeData     = await getHomepage()
+  const homeData = await getHomepage()
   const servicesData = await getAllServices()
 
-  const heroHeadline  = homeData?.hero_headline  || FALLBACK.hero.headline
-  const heroSubtext   = homeData?.hero_subtext   || FALLBACK.hero.subtext
-  const heroImageUrl  = homeData?.hero_image_url || FALLBACK.hero.image
-  const cta1          = homeData?.hero_cta1_label || FALLBACK.hero.cta1
-  const cta2          = homeData?.hero_cta2_label || FALLBACK.hero.cta2
+  const heroHeadline = homeData?.hero_headline || FALLBACK.hero.headline
+  const heroSubtext = homeData?.hero_subtext || FALLBACK.hero.subtext
+  const heroImageUrl = homeData?.hero_image_url || FALLBACK.hero.image
+  const cta1 = homeData?.hero_cta1_label || FALLBACK.hero.cta1
+  const cta2 = homeData?.hero_cta2_label || FALLBACK.hero.cta2
 
-  const aboutHeading  = homeData?.about_heading  || FALLBACK.about.heading
-  const aboutBody     = homeData?.about_body
+  const aboutHeading = homeData?.about_heading || FALLBACK.about.heading
+  const aboutBody = homeData?.about_body
   const aboutImageUrl = homeData?.about_image_url || FALLBACK.about.image
 
-  const sustainHeading  = homeData?.sustain_heading  || FALLBACK.sustainability.heading
-  const sustainBody     = homeData?.sustain_body     || FALLBACK.sustainability.body
+  const sustainHeading = homeData?.sustain_heading || FALLBACK.sustainability.heading
+  const sustainBody = homeData?.sustain_body || FALLBACK.sustainability.body
 
   const services = (servicesData.length ? servicesData : FALLBACK.services).slice(0, 5)
 
@@ -231,8 +232,10 @@ export default async function Home() {
         </div>
       </section>
 
+
+
       {/* ═══════════════════════════════════
-          6. SUSTAINABILITY
+          7. SUSTAINABILITY
       ═══════════════════════════════════ */}
       <section className="sustain">
         <div className="sustain-overlay" />
@@ -263,7 +266,12 @@ export default async function Home() {
 
 
       {/* ═══════════════════════════════════
-          7. CTA STRIP
+          8. INDUSTRY PARTNERS
+      ═══════════════════════════════════ */}
+      <IndustryPartners />
+
+      {/* ═══════════════════════════════════
+          9. CTA STRIP
       ═══════════════════════════════════ */}
       <section className="cta-section">
         <div className="container">
@@ -278,6 +286,8 @@ export default async function Home() {
           </Link>
         </div>
       </section>
+
+
     </>
   )
 }
