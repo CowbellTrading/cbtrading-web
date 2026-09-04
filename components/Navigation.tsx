@@ -11,25 +11,25 @@ import {
 const TRUST_H = 40   // keep in sync with CSS .trust-bar height
 
 const NAV_SERVICES = [
-  { label: 'Plastic Raw Materials',    href: '/plastic-raw-materials',    icon: <Recycle   size={15} strokeWidth={1.5} /> },
-  { label: 'Packaging Solutions',      href: '/packaging-solutions',      icon: <Package   size={15} strokeWidth={1.5} /> },
-  { label: 'Forklift Leasing',         href: '/forklift-leasing',         icon: <Tractor   size={15} strokeWidth={1.5} /> },
-  { label: 'Consulting Services',      href: '/consulting-services',      icon: <BarChart2 size={15} strokeWidth={1.5} /> },
-  { label: 'Machinery Representation', href: '/machinery-representation', icon: <Settings  size={15} strokeWidth={1.5} /> },
+  { label: 'Plastic Raw Materials', href: '/plastic-raw-materials', icon: <Recycle size={15} strokeWidth={1.5} /> },
+  { label: 'Packaging Solutions', href: '/packaging-solutions', icon: <Package size={15} strokeWidth={1.5} /> },
+  { label: 'Forklift Leasing', href: '/forklift-leasing', icon: <Tractor size={15} strokeWidth={1.5} /> },
+  { label: 'Consulting Services', href: '/consulting-services', icon: <BarChart2 size={15} strokeWidth={1.5} /> },
+  { label: 'Machinery Representation', href: '/machinery-representation', icon: <Settings size={15} strokeWidth={1.5} /> },
 ]
 
 const TRUST_ITEMS = [
-  { icon: <MapPin      size={11} strokeWidth={1.5} />, label: 'Ireland Based' },
-  { icon: <Globe       size={11} strokeWidth={1.5} />, label: 'Ireland & Spain' },
-  { icon: <Container   size={11} strokeWidth={1.5} />, label: 'Global Supplier Network' },
-  { icon: <Leaf        size={11} strokeWidth={1.5} />, label: 'Sustainable Solutions' },
+  { icon: <MapPin size={11} strokeWidth={1.5} />, label: 'Ireland Based' },
+  { icon: <Globe size={11} strokeWidth={1.5} />, label: 'Ireland & Spain' },
+  { icon: <Container size={11} strokeWidth={1.5} />, label: 'Global Supplier Network' },
+  { icon: <Leaf size={11} strokeWidth={1.5} />, label: 'Sustainable Solutions' },
   { icon: <ShieldCheck size={11} strokeWidth={1.5} />, label: 'Customs & Logistics Expertise' },
 ]
 
 export default function Navigation() {
-  const [hasShadow,  setHasShadow]  = useState(false)  // shows when trust bar has scrolled off
+  const [hasShadow, setHasShadow] = useState(false)  // shows when trust bar has scrolled off
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [dropOpen,   setDropOpen]   = useState(false)
+  const [dropOpen, setDropOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setHasShadow(window.scrollY > TRUST_H)
@@ -83,10 +83,10 @@ export default function Navigation() {
           {/* ── Logo ── */}
           <Link href="/" onClick={close} className="nav-logo" aria-label="Cowbell Keystone — home">
             <Image
-              src="/logo.svg"
+              src="/logo-dark.svg"
               alt="Cowbell Keystone Logo"
-              width={38}
-              height={40}
+              width={52}
+              height={54}
               priority
               className="nav-logo-img"
             />
@@ -98,7 +98,7 @@ export default function Navigation() {
 
           {/* ── Desktop navigation ── */}
           <nav className="desktop-nav" aria-label="Primary links">
-            <Link href="/about"     className="nav-link">About</Link>
+            <Link href="/about" className="nav-link">About</Link>
 
             {/* Services dropdown */}
             <div
@@ -169,10 +169,10 @@ export default function Navigation() {
       >
         <nav aria-label="Mobile navigation">
           {[
-            { label: 'Home',      href: '/' },
-            { label: 'About',     href: '/about' },
+            { label: 'Home', href: '/' },
+            { label: 'About', href: '/about' },
             { label: 'Resources', href: '/resources' },
-            { label: 'Contact',   href: '/contact' },
+            { label: 'Contact', href: '/contact' },
           ].map(l => (
             <Link key={l.href} href={l.href} onClick={close} className="mobile-nav-link">
               {l.label}
@@ -201,8 +201,8 @@ export default function Navigation() {
         ═══════════════════════════════════════════ */
         .trust-bar {
           position: relative;
-          background: #04130D;
-          border-bottom: 1px solid rgba(255,255,255,.05);
+          background: #0F172A;
+          border-bottom: 1px solid rgba(255,255,255,.08);
           z-index: 1001;
         }
         .trust-bar-inner {
@@ -221,15 +221,15 @@ export default function Navigation() {
           padding: 0 1.125rem;
           font-size: .6875rem;
           font-weight: 500;
-          color: rgba(255,255,255,.5);
+          color: #EAF4EF;
           letter-spacing: .02em;
           white-space: nowrap;
         }
-        .trust-icon { display: flex; align-items: center; color: #16B583; }
-        .trust-sep  { width: 1px; height: 11px; background: rgba(255,255,255,.1); flex-shrink: 0; }
+        .trust-icon { display: flex; align-items: center; color: #208F70; }
+        .trust-sep  { width: 1px; height: 11px; background: rgba(234,244,239,.2); flex-shrink: 0; }
 
         /* ═══════════════════════════════════════════
-           MAIN NAVIGATION — STICKY
+           MAIN NAVIGATION — STICKY LIGHT HEADER
         ═══════════════════════════════════════════ */
         .site-nav {
           position: sticky;
@@ -238,13 +238,13 @@ export default function Navigation() {
           right: 0;
           z-index: 1000;
           height: 80px;
-          background: #0D3B2E;
-          border-bottom: 1px solid rgba(255,255,255,.07);
+          background: #FFFFFF;
+          border-bottom: 1px solid #E2E8F0;
           transition: box-shadow 300ms ease;
         }
         /* Elevate nav when trust bar has scrolled away */
         .nav-scrolled {
-          box-shadow: 0 2px 20px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.06);
+          box-shadow: 0 4px 20px rgba(15,23,42,.08), 0 1px 0 #E2E8F0;
         }
 
         /* ═══════════════════════════════════════════
@@ -272,7 +272,7 @@ export default function Navigation() {
           flex-shrink: 0;
         }
         .nav-logo-img {
-          height: 40px;
+          height: 52px;
           width: auto;
           flex-shrink: 0;
           object-fit: contain;
@@ -281,21 +281,21 @@ export default function Navigation() {
         .nav-logo-text { line-height: 1.25; }
         .nav-logo-name {
           display: block;
-          font-size: .8125rem;
+          font-size: .9375rem;
           font-weight: 700;
-          color: #fff;
+          color: #0F172A;
           text-transform: uppercase;
           letter-spacing: .07em;
           font-family: 'Inter', sans-serif;
         }
         .nav-logo-sub {
           display: block;
-          font-size: .625rem;
-          color: rgba(255,255,255,.5);
+          font-size: .75rem;
+          color: #475569;
           letter-spacing: .04em;
-          font-weight: 400;
+          font-weight: 500;
           font-family: 'Inter', sans-serif;
-          margin-top: 1px;
+          margin-top: 2px;
         }
 
         /* ═══════════════════════════════════════════
@@ -314,8 +314,8 @@ export default function Navigation() {
           gap: .3rem;
           padding: .5rem 1.125rem;
           font-size: .875rem;
-          font-weight: 500;
-          color: rgba(255,255,255,.75);
+          font-weight: 600;
+          color: #334155;
           border-radius: 4px;
           transition: background 150ms ease, color 150ms ease;
           white-space: nowrap;
@@ -327,7 +327,7 @@ export default function Navigation() {
           text-decoration: none;
           height: 36px;
         }
-        .nav-link:hover { background: rgba(255,255,255,.08); color: #fff; }
+        .nav-link:hover { background: rgba(15,23,42,.05); color: #0F172A; }
         .nav-dropdown-btn { /* inherits .nav-link */ }
         .nav-cta { margin-left: 1rem; }
 
@@ -340,11 +340,11 @@ export default function Navigation() {
           top: calc(100% + 8px);
           right: 0;
           min-width: 280px;
-          background: #0D3B2E;
-          border: 1px solid rgba(255,255,255,.1);
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
           border-radius: 8px;
           padding: .5rem;
-          box-shadow: 0 8px 32px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2);
+          box-shadow: 0 10px 30px rgba(15,23,42,.1), 0 2px 8px rgba(0,0,0,.04);
           opacity: 0;
           visibility: hidden;
           transform: translateY(-6px);
@@ -363,22 +363,23 @@ export default function Navigation() {
           gap: .875rem;
           padding: .625rem .875rem;
           font-size: .875rem;
-          color: rgba(255,255,255,.78);
+          color: #334155;
           border-radius: 5px;
           transition: background 150ms ease, color 150ms ease;
           text-decoration: none;
           font-family: 'Inter', sans-serif;
+          font-weight: 500;
         }
-        .nav-dropdown-item:hover { background: rgba(255,255,255,.08); color: #fff; }
+        .nav-dropdown-item:hover { background: #F8FAFC; color: #0F172A; }
         .nav-dropdown-icon {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 26px;
           height: 26px;
-          background: rgba(22,181,131,.15);
+          background: #EAF4EF;
           border-radius: 4px;
-          color: #16B583;
+          color: #1F6B57;
           flex-shrink: 0;
         }
 
@@ -391,32 +392,30 @@ export default function Navigation() {
           justify-content: center;
           width: 38px;
           height: 38px;
-          color: rgba(255,255,255,.85);
-          background: rgba(255,255,255,.07);
-          border: 1px solid rgba(255,255,255,.1);
+          color: #0F172A;
+          background: #F8FAFC;
+          border: 1px solid #E2E8F0;
           border-radius: 4px;
           cursor: pointer;
           flex-shrink: 0;
           transition: background 150ms ease;
         }
-        .hamburger-btn:hover { background: rgba(255,255,255,.13); }
+        .hamburger-btn:hover { background: #F1F5F9; }
 
         /* ═══════════════════════════════════════════
            MOBILE DRAWER
-           Top = nav height (80px) since trust bar
-           scrolls away and nav sticks at 0
         ═══════════════════════════════════════════ */
         .mobile-drawer {
           position: fixed;
           inset: 0;
           top: 80px;
-          background: #0D3B2E;
+          background: #0F172A;
           z-index: 999;
           padding: 1.75rem 1.5rem 2.5rem;
           overflow-y: auto;
           transform: translateX(100%);
           transition: transform 320ms cubic-bezier(.4,0,.2,1);
-          border-top: 1px solid rgba(255,255,255,.07);
+          border-top: 1px solid rgba(255,255,255,.1);
         }
         .mobile-drawer.open { transform: translateX(0); }
         .mobile-nav-link {

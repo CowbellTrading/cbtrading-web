@@ -7,7 +7,7 @@ import { getServiceBySlug, getProductsByServiceSlug } from '@/lib/supabase'
 import { PortableText } from '@portabletext/react'
 import ContactForm from '@/components/ContactForm'
 import {
-  Recycle, Package, Tractor, BarChart2, Settings
+  Recycle, Package, Tractor, BarChart2, Settings, Download, FileText
 } from 'lucide-react'
 
 export const revalidate = 60
@@ -18,7 +18,10 @@ const SERVICE_FALLBACKS: Record<string, {
   summary: string
   image: string
   overview: string
+  pdfCatalogUrl?: string
   features: { title: string; description: string }[]
+  catalog?: { name: string; category: string; image?: string; description: string; applications: string[] }[]
+  certifications?: { name: string; label: string }[]
   industriesServed: string[]
   whyCowbell: string
   steps: { n: string; title: string; desc: string }[]
@@ -49,22 +52,37 @@ const SERVICE_FALLBACKS: Record<string, {
   },
   'packaging-solutions': {
     title: 'Packaging Solutions',
-    summary: 'Industrial and commercial packaging materials for manufacturers, distributors, and logistics operations.',
-    // Packaging production line / flexible packaging manufacturing
+    summary: 'Manufacturing premium flexible packaging, rotogravure printed laminates, and high-barrier films for global food, beverage, consumer, and industrial brands.',
     image: '/images/packaging_solutions.png',
-    overview: 'Cowbell Keystone supplies a broad range of industrial packaging materials — from stretch film and shrink wrap to heavy-duty bags and transit packaging — to businesses across Ireland and Spain. We source from proven European manufacturers to deliver quality, consistency, and competitive pricing at scale.',
+    pdfCatalogUrl: '/Packaging.pdf',
+    overview: 'In commercial partnership with Radiant Packaging Industry L.L.C. (RAK, UAE), Cowbell Keystone supplies high-performance flexible packaging and printed laminates across Ireland, Spain, and European markets. Operating state-of-the-art rotogravure printing presses, precision solventless lamination lines, and automated pouch-making machinery certified to ISO 9001, ISO 22000, BRCGS (A+ Grade), and HACCP standards, we deliver end-to-end packaging solutions engineered for barrier integrity, food safety, and shelf appeal.',
     features: [
-      { title: 'Stretch & Shrink Film', description: 'Machine and hand stretch films, heat-shrink packaging in various gauges and formats.' },
-      { title: 'Industrial Bags & Sacks', description: 'PE, PP, and multi-layer bags for bulk materials, food-grade and industrial applications.' },
-      { title: 'Protective Packaging', description: 'Foam, bubble wrap, corner protectors, and void fill solutions for transit damage prevention.' },
-      { title: 'Custom Specifications', description: 'Bespoke sizes, prints, and configurations available with minimum order quantities.' },
+      { title: 'Rotogravure Printing & Lamination', description: 'Multi-layer laminates with high-definition rotogravure printing up to 10 colors and solventless lamination for superior bond strength.' },
+      { title: 'High-Barrier Substrates & Foil', description: 'Aluminum foil, Met-PET, and EVOH co-extrusions engineered for maximum oxygen, moisture, and light barrier protection.' },
+      { title: 'Pre-Formed Pouches & FFS Rollstock', description: 'Stand-up pouches, zipper bags, 3-side seal, side gusset, flat bottom pouches, and high-speed automated FFS rollstock.' },
+      { title: 'Certified Quality & Food Safety', description: 'Facility independently certified to BRCGS Grade A+, ISO 22000, ISO 9001, and HACCP compliance standards.' },
     ],
-    industriesServed: ['Logistics', 'Food & FMCG', 'Manufacturing', 'Retail', 'Agriculture', 'Pharmaceutical'],
-    whyCowbell: 'We combine volume purchasing power with sourcing flexibility — meaning you get better pricing than direct manufacturer minimums, with the service of a local partner.',
+    catalog: [
+      { name: 'Printed Laminates & FFS Rollstock', category: 'Flexible Packaging', image: '/images/packaging/catalog_img_15.jpg', description: 'High-definition rotogravure printed multi-layer rollstock engineered for high-speed Form-Fill-Seal (FFS) automated packaging lines.', applications: ['Food & Beverage', 'Coffee', 'Confectionery', 'Snacks'] },
+      { name: 'Stand-Up & Zipper Pouches', category: 'Pre-formed Pouches', image: '/images/packaging/catalog_img_10.jpg', description: 'Shelf-ready pouches with resealable press-to-close zippers, tear notches, and ergonomic spouts for premium retail presentation.', applications: ['Dry Foods', 'Pet Food', 'Coffee', 'Spices'] },
+      { name: 'High-Barrier Foil & Met-PET Films', category: 'Barrier Films', image: '/images/packaging/catalog_img_11.jpg', description: 'Multi-layer aluminum foil and metallized PET laminates offering near-zero OTR & WVTR for sensitive products.', applications: ['Coffee & Tea', 'Pharmaceutical', 'Chemical', 'Powders'] },
+      { name: 'Heavy-Duty Industrial Sacks & FIBC', category: 'Industrial Packaging', image: '/images/packaging/catalog_img_12.jpg', description: 'PE, PP, and multi-wall barrier sacks engineered for heavy-duty raw material transit and bulk cargo handling.', applications: ['Polymers', 'Agriculture', 'Building Materials', 'Industrial'] },
+      { name: 'Shrink Covers & Stretch Wrapping', category: 'Transit Protection', image: '/images/packaging/catalog_img_13.jpg', description: 'High-clarity pallet stretch film, heat-shrink hood covers, and protective void fills for secure international transport.', applications: ['Logistics', 'Warehousing', 'Freight', 'Manufacturing'] },
+      { name: 'Monomaterial Recyclable Films', category: 'Sustainable Packaging', image: '/images/packaging/catalog_img_14.jpg', description: 'Eco-friendly PE/PE and PP/PP monomaterial barrier laminates designed for 100% circular economy recycling compliance.', applications: ['Eco Retail', 'Sustainable FMCG', 'Organic Foods'] },
+    ],
+    certifications: [
+      { name: 'ISO 9001', label: 'Quality Management' },
+      { name: 'ISO 22000', label: 'Food Safety Management' },
+      { name: 'BRCGS Grade A+', label: 'Global Packaging Standard' },
+      { name: 'HACCP', label: 'Hazard Analysis & Critical Control' },
+    ],
+    industriesServed: ['Food & Beverage', 'Frozen Foods', 'Coffee & Tea', 'Confectionery', 'Pet Food', 'Pharmaceutical', 'Personal Care', 'Agriculture', 'Industrial'],
+    whyCowbell: 'Our strategic partnership with Radiant Packaging combines world-class manufacturing scale (900 MT/month capacity) with direct European customer support, zero customs friction, and dedicated inventory buffer management across Ireland and Spain.',
     steps: [
-      { n: '01', title: 'Spec Consultation', desc: 'Share your current packaging spec and volumes for a competitive quote.' },
-      { n: '02', title: 'Supplier Matching', desc: 'We identify the best European source for your requirements.' },
-      { n: '03', title: 'Delivery & Ongoing Supply', desc: 'Regular scheduled deliveries to maintain your stock levels.' },
+      { n: '01', title: 'Raw Material Sourcing', desc: 'Certified food-contact films and barrier substrates selected for safety, strength, and barrier performance.' },
+      { n: '02', title: 'Printing & Lamination', desc: 'High-definition rotogravure printing combined with precision solventless lamination for flawless finishes.' },
+      { n: '03', title: 'Converting & Slitting', desc: 'Precision pouch forming, zipper insertion, and rollstock slitting to exact client specifications.' },
+      { n: '04', title: 'Quality Testing & Packing', desc: 'In-house lab testing on every batch for seal strength, print accuracy, and barrier integrity before dispatch.' },
     ],
     related: [
       { slug: 'plastic-raw-materials', title: 'Plastic Raw Materials', summary: 'Virgin and recycled polymers.' },
@@ -148,12 +166,12 @@ const SERVICE_FALLBACKS: Record<string, {
 function getServiceIcon(slug: string) {
   const props = { size: 24, strokeWidth: 1.5 }
   switch (slug) {
-    case 'plastic-raw-materials':    return <Recycle   {...props} />
-    case 'packaging-solutions':      return <Package   {...props} />
-    case 'forklift-leasing':         return <Tractor   {...props} />
-    case 'consulting-services':      return <BarChart2 {...props} />
+    case 'plastic-raw-materials': return <Recycle   {...props} />
+    case 'packaging-solutions': return <Package   {...props} />
+    case 'forklift-leasing': return <Tractor   {...props} />
+    case 'consulting-services': return <BarChart2 {...props} />
     case 'machinery-representation': return <Settings  {...props} />
-    default:                         return <Package   {...props} />
+    default: return <Package   {...props} />
   }
 }
 
@@ -181,16 +199,16 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   if (!fb) notFound()
 
   // Supabase queries — return null/[] gracefully on error
-  const serviceData  = await getServiceBySlug(slug)
+  const serviceData = await getServiceBySlug(slug)
   const productsData = await getProductsByServiceSlug(slug)
 
-  const title       = serviceData?.title       || fb.title
-  const summary     = serviceData?.summary     || fb.summary
-  const heroImageUrl= serviceData?.hero_image_url || fb.image
-  const overview    = serviceData?.overview
-  const features    = (serviceData?.features?.length ? serviceData.features : fb.features)
-  const industries  = (serviceData?.industries_served?.length ? serviceData.industries_served : fb.industriesServed)
-  const whyCowbell  = serviceData?.why_cowbell  || fb.whyCowbell
+  const title = serviceData?.title || fb.title
+  const summary = serviceData?.summary || fb.summary
+  const heroImageUrl = serviceData?.hero_image_url || fb.image
+  const overview = serviceData?.overview
+  const features = (serviceData?.features?.length ? serviceData.features : fb.features)
+  const industries = (serviceData?.industries_served?.length ? serviceData.industries_served : fb.industriesServed)
+  const whyCowbell = serviceData?.why_cowbell || fb.whyCowbell
 
   return (
     <>
@@ -259,28 +277,89 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 ))}
               </div>
 
-              {/* Products (if any in Supabase) */}
-              {productsData.length > 0 && (
+              {/* Product Catalog & Formats (from Supabase or Radiant Packaging fallback catalog) */}
+              {(productsData.length > 0 || (fb.catalog && fb.catalog.length > 0)) && (
                 <>
-                  <h3 style={{ marginBottom: '1.5rem' }}>Products</h3>
+                  <h3 style={{ marginBottom: '1.5rem' }}>Product Catalog & Packaging Formats</h3>
                   <div className="products-grid" style={{ marginBottom: '3rem' }}>
-                    {productsData.map((p) => (
-                      <div className="product-card" key={p.id}>
-                        <h4>{p.name}</h4>
-                        {p.grade && <span className="product-grade">{p.grade}</span>}
-                        <p>{p.description}</p>
-                        {(p.applications?.length ?? 0) > 0 && (
+                    {productsData.length > 0 ? (
+                      productsData.map((p) => (
+                        <div className="product-card" key={p.id}>
+                          <h4>{p.name}</h4>
+                          {p.grade && <span className="product-grade">{p.grade}</span>}
+                          <p>{p.description}</p>
+                          {(p.applications?.length ?? 0) > 0 && (
+                            <div className="product-tags">
+                              {p.applications!.map((a: string) => (
+                                <span className="product-tag" key={a}>{a}</span>
+                              ))}
+                            </div>
+                          )}
+                          {p.datasheet_url && (
+                            <a href={p.datasheet_url} target="_blank" rel="noopener noreferrer" className="product-datasheet">
+                              Download Datasheet <ArrowRight size={12} />
+                            </a>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      fb.catalog?.map((cat, i) => (
+                        <div className="product-card" key={i}>
+                          <span className="product-grade">{cat.category}</span>
+                          <h4 style={{ marginTop: '.5rem' }}>{cat.name}</h4>
+                          <p>{cat.description}</p>
                           <div className="product-tags">
-                            {p.applications!.map((a: string) => (
+                            {cat.applications.map((a: string) => (
                               <span className="product-tag" key={a}>{a}</span>
                             ))}
                           </div>
-                        )}
-                        {p.datasheet_url && (
-                          <a href={p.datasheet_url} target="_blank" rel="noopener noreferrer" className="product-datasheet">
-                            Download Datasheet <ArrowRight size={12} />
-                          </a>
-                        )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  {/* ── PDF Catalog Download Banner ── */}
+                  {fb.pdfCatalogUrl && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', padding: '1.75rem 2rem', background: '#0F172A', color: 'var(--white)', borderRadius: 'var(--r-lg)', marginBottom: '3rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 'var(--r-md)', background: 'rgba(32, 143, 112, 0.2)', color: 'var(--cta-green)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <FileText size={24} strokeWidth={1.75} />
+                        </div>
+                        <div>
+                          <h4 style={{ color: 'var(--white)', margin: '0 0 .25rem', fontSize: '1.125rem' }}>Download Official Product Catalog PDF</h4>
+                          <p style={{ margin: 0, color: 'rgba(255, 255, 255, 0.75)', fontSize: '.875rem' }}>
+                            Access comprehensive technical specifications, material structures, and packaging specs in our official brochure.
+                          </p>
+                        </div>
+                      </div>
+                      <a
+                        href={fb.pdfCatalogUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download="Packaging-Solutions-Catalog.pdf"
+                        className="btn btn-primary"
+                        style={{ background: 'var(--cta-green)', color: 'var(--white)', flexShrink: 0, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '.5rem' }}
+                      >
+                        <Download size={16} strokeWidth={2} />
+                        Download PDF Catalog
+                      </a>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Quality & Food Safety Certifications */}
+              {fb.certifications && fb.certifications.length > 0 && (
+                <>
+                  <h3 style={{ marginBottom: '1.25rem' }}>Quality & Food Safety Certifications</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
+                    {fb.certifications.map((c, i) => (
+                      <div key={i} style={{ padding: '1.25rem', background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 'var(--r-md)' }}>
+                        <span style={{ display: 'inline-block', fontSize: '.6875rem', fontWeight: 700, color: 'var(--cta-green)', letterSpacing: '.05em', textTransform: 'uppercase', marginBottom: '.25rem' }}>
+                          Independently Certified
+                        </span>
+                        <h4 style={{ margin: '0 0 .25rem', fontSize: '1.0625rem', color: '#0F172A' }}>{c.name}</h4>
+                        <p style={{ margin: 0, fontSize: '.8125rem', color: 'var(--gray-600)' }}>{c.label}</p>
                       </div>
                     ))}
                   </div>

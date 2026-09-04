@@ -3,10 +3,10 @@ import Image from 'next/image'
 import { MapPin, Mail, Globe, ExternalLink } from 'lucide-react'
 
 const SERVICES = [
-  { label: 'Plastic Raw Materials',    href: '/plastic-raw-materials' },
-  { label: 'Packaging Solutions',      href: '/packaging-solutions' },
-  { label: 'Forklift Leasing',         href: '/forklift-leasing' },
-  { label: 'Consulting Services',      href: '/consulting-services' },
+  { label: 'Plastic Raw Materials', href: '/plastic-raw-materials' },
+  { label: 'Packaging Solutions', href: '/packaging-solutions' },
+  { label: 'Forklift Leasing', href: '/forklift-leasing' },
+  { label: 'Consulting Services', href: '/consulting-services' },
   { label: 'Machinery Representation', href: '/machinery-representation' },
 ]
 
@@ -24,9 +24,9 @@ export default function Footer() {
               <Image
                 src="/logo-white.svg"
                 alt="Cowbell Keystone Trading Ireland Limited Logo"
-                width={38}
-                height={46}
-                style={{ height: 46, width: 'auto' }}
+                width={52}
+                height={58}
+                style={{ height: 58, width: 'auto' }}
                 className="footer-logo-img"
               />
               <div className="footer-logo-text">
@@ -96,7 +96,7 @@ export default function Footer() {
             <div className="footer-contact-item" style={{ marginTop: '0.5rem' }}>
               <span className="footer-contact-icon" aria-hidden="true">
                 {/* Phone icon from lucide-react if available, but I'll use text or add phone icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
               </span>
               <a href="tel:+353894898717">+353 89 489 8717</a>
             </div>

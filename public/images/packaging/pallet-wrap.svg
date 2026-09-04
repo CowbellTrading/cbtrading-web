@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#F7F8F6" rx="8"/>
+  <rect x="12" y="12" width="376" height="276" fill="none" stroke="#D9E3DF" stroke-width="1.5" stroke-dasharray="4 4" rx="6"/>
+  <g transform="translate(200, 110)">
+    <circle r="36" fill="#E3F3EC" />
+    <path d="M-12,-12 L12,-12 L12,12 L-12,12 Z M-6,-6 L6,-6 L6,6 L-6,6 Z" fill="#163F35" opacity="0.85" />
+    <path d="M-20,0 L20,0 M0,-20 L0,20" stroke="#1FA77A" stroke-width="2" stroke-linecap="round" />
+  </g>
+  <text x="200" y="185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" fill="#17201E" text-anchor="middle">Pallet Protection &amp; Wrap</text>
+  <text x="200" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#1FA77A" text-anchor="middle">Transit Packaging</text>
+</svg>

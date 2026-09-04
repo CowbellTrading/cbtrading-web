@@ -10,18 +10,22 @@ interface SafeImageProps extends Omit<ImageProps, 'src'> {
 
 export default function SafeImage({ src, fallbackSrc = '/images/about_company.png', alt, ...props }: SafeImageProps) {
   const [error, setError] = useState(false)
-  
+
   useEffect(() => {
     setError(false)
   }, [src])
 
   const effectiveSrc = (src && !error) ? src : fallbackSrc
+  const isSvg = typeof effectiveSrc === 'string' && effectiveSrc.endsWith('.svg')
 
   return (
     <Image
       src={effectiveSrc}
       alt={alt || 'Image'}
-      onError={() => setError(true)}
+      onError={() => {
+        if (!isSvg) setError(true)
+      }}
+      unoptimized={isSvg || props.unoptimized}
       {...props}
     />
   )
