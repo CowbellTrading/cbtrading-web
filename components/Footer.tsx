@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Mail, Globe, ExternalLink } from 'lucide-react'
+import { MapPin, Mail, Globe } from 'lucide-react'
 
 const SERVICES = [
   { label: 'Plastic Raw Materials', href: '/plastic-raw-materials' },
@@ -111,14 +111,6 @@ export default function Footer() {
                 <Globe size={15} strokeWidth={1.5} />
               </span>
               <span>Serving Ireland, Spain &amp; Europe</span>
-            </div>
-            <div className="footer-contact-item" style={{ marginTop: '0.5rem' }}>
-              <span className="footer-contact-icon" aria-hidden="true">
-                <ExternalLink size={15} strokeWidth={1.5} />
-              </span>
-              <a href="https://cbtrading.ie" target="_blank" rel="noopener noreferrer">
-                cbtrading.ie
-              </a>
             </div>
           </address>
 
