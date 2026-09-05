@@ -7,22 +7,58 @@ import { getSiteSettings } from '@/lib/supabase'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
+  title: 'Contact Cowbell Keystone Trading Ireland',
   description: 'Get in touch with Cowbell Keystone Trading Ireland Limited. Request a quote, ask about our services, or discuss your supply chain needs.',
+  alternates: {
+    canonical: 'https://cb-trading.ie/contact',
+  },
+  openGraph: {
+    title: 'Contact Cowbell Keystone Trading Ireland',
+    description: 'Get in touch with Cowbell Keystone Trading Ireland Limited. Request a quote, ask about our services, or discuss your supply chain needs.',
+    url: 'https://cb-trading.ie/contact',
+    siteName: 'Cowbell Keystone Trading Ireland',
+    locale: 'en_IE',
+    type: 'website',
+  },
 }
 
 export default async function ContactPage() {
   const settings = await getSiteSettings()
 
-  const address = settings?.address1 && settings?.city 
+  const address = settings?.address1 && settings?.city
     ? `${settings.address1}${settings.address2 ? `, ${settings.address2}` : ''}, ${settings.city}${settings.country ? `, ${settings.country}` : ''}`
     : 'Kilmartin Grove, Republic of Ireland, D15 AX0H'
-  
+
   const phone = settings?.phone || '+353 89 489 8717'
   const email = settings?.email || 'info@cb-trading.ie'
 
   return (
     <>
+      {/* ── JSON-LD Breadcrumb Schema ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://cb-trading.ie"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Contact",
+                "item": "https://cb-trading.ie/contact"
+              }
+            ]
+          }),
+        }}
+      />
+
       {/* ── Page Hero ── */}
       <section className="page-hero">
         <div className="page-hero-inner container">
@@ -100,8 +136,8 @@ export default async function ContactPage() {
                 <div>
                   <p className="contact-label">Website</p>
                   <p className="contact-value">
-                    <a href="https://cbtrading.ie" target="_blank" rel="noopener noreferrer">
-                      cbtrading.ie
+                    <a href="https://cb-trading.ie" target="_blank" rel="noopener noreferrer">
+                      cb-trading.ie
                     </a>
                   </p>
                 </div>

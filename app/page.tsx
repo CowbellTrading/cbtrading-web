@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import SafeImage from '@/components/SafeImage'
 import IndustryPartners from '@/components/IndustryPartners'
@@ -11,13 +12,31 @@ import {
 
 export const revalidate = 60
 
+export const metadata: Metadata = {
+  title: 'Cowbell Keystone Trading Ireland | Plastic Materials, Packaging & Logistics',
+  description:
+    'Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation.',
+  alternates: {
+    canonical: 'https://cb-trading.ie/',
+  },
+  openGraph: {
+    title: 'Cowbell Keystone Trading Ireland | Plastic Materials, Packaging & Logistics',
+    description:
+      'Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation.',
+    url: 'https://cb-trading.ie/',
+    siteName: 'Cowbell Keystone Trading Ireland',
+    locale: 'en_IE',
+    type: 'website',
+  },
+}
+
 /* ─────────────── Fallback data ─────────────── */
 const FALLBACK = {
   hero: {
     headline: 'Sustainable Industrial Trading &\nMaterial Supply Solutions',
     subtext: 'Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation.',
-    // Hero section image (user-uploaded Ireland image from public folder)
-    image: '/IRELAND.jpg',
+    // Hero section image (optimized WebP image)
+    image: '/IRELAND.webp',
     cta1: 'Explore Our Services',
     cta2: 'Request a Quote',
   },
@@ -186,7 +205,7 @@ export default async function Home() {
           <Link href="/about" className="btn btn-outline-dark">Read Our Story</Link>
         </div>
         <div className="split-photo">
-          <SafeImage src={aboutImageUrl} alt="About Cowbell Keystone" fill sizes="50vw" quality={100} style={{ objectFit: 'cover' }} />
+          <SafeImage src={aboutImageUrl} alt="European port container logistics terminal representing B2B trading and supply chain operations" fill sizes="50vw" quality={100} style={{ objectFit: 'cover' }} />
         </div>
       </section>
 

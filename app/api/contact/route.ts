@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server'
 
 interface ContactBody {
-  name:    string
+  name: string
   company: string
-  email:   string
-  phone:   string
+  email: string
+  phone: string
   service: string
   message: string
-  _hp:     string
+  _hp: string
 }
 
 function isValidEmail(e: string) {
@@ -193,7 +193,7 @@ function buildAutoResponseEmail(name: string, service: string): string {
         Cowbell Keystone Trading Ireland Limited
       </p>
       <p style="margin:0;font-size:11px;color:rgba(255,255,255,.25);">
-        Registered in Ireland · VAT IE · cbtrading.ie
+        Registered in Ireland · VAT IE · cb-trading.ie
       </p>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);">
         <p style="margin:0;font-size:10px;color:rgba(255,255,255,.2);line-height:1.6;">
@@ -232,12 +232,12 @@ export async function POST(req: Request) {
   }
 
   // ── Server-side validation ────────────────────────────────────
-  if (!name?.trim())             return NextResponse.json({ error: 'Name is required' },    { status: 422 })
-  if (!email?.trim())            return NextResponse.json({ error: 'Email is required' },   { status: 422 })
-  if (!isValidEmail(email))      return NextResponse.json({ error: 'Invalid email' },       { status: 422 })
-  if (!message?.trim())          return NextResponse.json({ error: 'Message is required' }, { status: 422 })
-  if (message.length > 2000)     return NextResponse.json({ error: 'Message too long' },    { status: 422 })
-  if (phone && phone.length > 50) return NextResponse.json({ error: 'Phone too long' },    { status: 422 })
+  if (!name?.trim()) return NextResponse.json({ error: 'Name is required' }, { status: 422 })
+  if (!email?.trim()) return NextResponse.json({ error: 'Email is required' }, { status: 422 })
+  if (!isValidEmail(email)) return NextResponse.json({ error: 'Invalid email' }, { status: 422 })
+  if (!message?.trim()) return NextResponse.json({ error: 'Message is required' }, { status: 422 })
+  if (message.length > 2000) return NextResponse.json({ error: 'Message too long' }, { status: 422 })
+  if (phone && phone.length > 50) return NextResponse.json({ error: 'Phone too long' }, { status: 422 })
 
   // ── Send emails via Resend ────────────────────────────────────
   const resendKey = process.env.RESEND_API_KEY
@@ -251,20 +251,20 @@ export async function POST(req: Request) {
 
       // 1. Internal notification → business inbox
       await resend.emails.send({
-        from:    'Website Enquiry <noreply@cb-trading.ie>',
-        to:      [TO_EMAIL],
+        from: 'Website Enquiry <noreply@cb-trading.ie>',
+        to: [TO_EMAIL],
         replyTo: email,
         subject: `New Enquiry: ${service || 'General'} — ${name}`,
-        html:    buildInternalEmail({ name, company, email, phone, service, message }),
+        html: buildInternalEmail({ name, company, email, phone, service, message }),
       })
 
       // 2. Auto-response confirmation → customer
       await resend.emails.send({
-        from:    'Cowbell Keystone Trading Ireland <info@cb-trading.ie>',
-        to:      [email],
+        from: 'Cowbell Keystone Trading Ireland <info@cb-trading.ie>',
+        to: [email],
         replyTo: TO_EMAIL,
         subject: 'Thank you for contacting Cowbell Keystone Trading Ireland',
-        html:    buildAutoResponseEmail(name, service),
+        html: buildAutoResponseEmail(name, service),
       })
 
     } catch (err) {

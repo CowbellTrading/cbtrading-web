@@ -180,15 +180,54 @@ export async function generateStaticParams() {
   return Object.keys(SERVICE_FALLBACKS).map(slug => ({ slug }))
 }
 
+const SERVICE_SEO_TITLES: Record<string, string> = {
+  'plastic-raw-materials': 'Plastic Raw Materials Sourcing Ireland | Cowbell Keystone',
+  'packaging-solutions': 'Packaging Solutions Ireland | Cowbell Keystone',
+  'forklift-leasing': 'Forklift Leasing Ireland | Cowbell Keystone',
+  'consulting-services': 'Supply Chain Consulting Ireland | Cowbell Keystone',
+  'machinery-representation': 'Machinery Representation Ireland | Cowbell Keystone',
+}
+
+const SERVICE_SECTION_HEADINGS: Record<string, string> = {
+  'plastic-raw-materials': 'Polymer Grades & Raw Material Sourcing Solutions',
+  'packaging-solutions': 'Flexible Packaging & Industrial Barrier Solutions',
+  'forklift-leasing': 'Material Handling & Forklift Fleet Solutions',
+  'consulting-services': 'Supply Chain Advisory & EU Market Entry Solutions',
+  'machinery-representation': 'Industrial Machinery Sourcing & Representation Solutions',
+}
+
+const SERVICE_IMAGE_ALTS: Record<string, string> = {
+  'plastic-raw-materials': 'Industrial plastic raw material polymer granules and raw materials sourcing',
+  'packaging-solutions': 'Industrial flexible packaging films and commercial packaging solutions',
+  'forklift-leasing': 'Industrial logistics warehouse forklift truck fleet for material handling',
+  'consulting-services': 'Supply chain management and logistics consulting consultation meeting',
+  'machinery-representation': 'Heavy industrial manufacturing machinery and equipment representation',
+}
+
 /* ─── Metadata ─── */
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const fb = SERVICE_FALLBACKS[slug]
   if (!fb) return {}
   const data = await getServiceBySlug(slug)
+  const title = data?.meta_title || SERVICE_SEO_TITLES[slug] || `${fb.title} | Cowbell Keystone`
+  const description = data?.meta_description || fb.summary
+  const url = `https://cb-trading.ie/${slug}`
+
   return {
-    title: data?.meta_title || fb.title,
-    description: data?.meta_description || fb.summary,
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'Cowbell Keystone Trading Ireland',
+      locale: 'en_IE',
+      type: 'website',
+    },
   }
 }
 
@@ -210,12 +249,63 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const industries = (serviceData?.industries_served?.length ? serviceData.industries_served : fb.industriesServed)
   const whyCowbell = serviceData?.why_cowbell || fb.whyCowbell
 
+  const canonicalUrl = `https://cb-trading.ie/${slug}`
+  const heroAltText = SERVICE_IMAGE_ALTS[slug] || `${title} service banner image`
+  const sectionHeading = SERVICE_SECTION_HEADINGS[slug] || 'What We Offer'
+
   return (
     <>
+      {/* ── JSON-LD Structured Data ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "name": title,
+              "serviceType": title,
+              "provider": {
+                "@type": "Corporation",
+                "name": "Cowbell Keystone Trading Ireland Limited",
+                "url": "https://cb-trading.ie"
+              },
+              "areaServed": ["Ireland", "Spain", "Europe"],
+              "description": summary,
+              "url": canonicalUrl
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://cb-trading.ie"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://cb-trading.ie/#services"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": title,
+                  "item": canonicalUrl
+                }
+              ]
+            }
+          ]),
+        }}
+      />
+
       {/* ── Page Hero ── */}
       <section className="page-hero" style={{ minHeight: 380 }}>
         <div className="page-hero-photo">
-          <SafeImage src={heroImageUrl} alt={title} fill priority sizes="100vw" quality={100} style={{ objectFit: 'cover', opacity: 1 }} />
+          <SafeImage src={heroImageUrl} alt={heroAltText} fill priority sizes="100vw" quality={100} style={{ objectFit: 'cover', opacity: 1 }} />
         </div>
         <div className="page-hero-inner container" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -249,7 +339,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div>
               {/* Overview */}
               <span className="section-label">Overview</span>
-              <h2 style={{ marginBottom: '1.5rem' }}>What We Offer</h2>
+              <h2 style={{ marginBottom: '1.5rem' }}>{sectionHeading}</h2>
               {overview ? (
                 <div style={{ color: 'var(--gray-600)', lineHeight: 1.85, fontSize: '1.0625rem', marginBottom: '3rem' }}>
                   {Array.isArray(overview)

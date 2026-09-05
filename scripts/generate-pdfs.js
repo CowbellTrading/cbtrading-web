@@ -38,10 +38,10 @@ function generatePDF(title) {
     doc.moveDown(2);
 
     doc.fontSize(18).font('Helvetica-Oblique').fillColor('#666666').text('Sample Document', { align: 'center' });
-    
+
     doc.moveDown(10);
     doc.fontSize(12).font('Helvetica').fillColor('#999999').text(`Generated on ${new Date().toLocaleDateString()}`, { align: 'center' });
-    
+
     doc.addPage();
 
     // Content Page 1
@@ -49,11 +49,11 @@ function generatePDF(title) {
     doc.moveDown(1);
     doc.fontSize(12).font('Helvetica').fillColor('#333333').text(loremIpsum, { align: 'justify' });
     doc.moveDown(2);
-    
+
     doc.fontSize(20).font('Helvetica-Bold').fillColor('#0D3B2E').text('2. Market Overview', { underline: true });
     doc.moveDown(1);
     doc.fontSize(12).font('Helvetica').fillColor('#333333').text(loremIpsum, { align: 'justify' });
-    
+
     doc.addPage();
 
     // Content Page 2
@@ -64,7 +64,7 @@ function generatePDF(title) {
 
     doc.fontSize(14).font('Helvetica-Bold').fillColor('#0D3B2E').text('Contact Information:');
     doc.moveDown(0.5);
-    doc.fontSize(12).font('Helvetica').fillColor('#333333').text('Cowbell Keystone Trading Ireland Limited\nEmail: info@cbtrading.ie\nWebsite: www.cbtrading.ie');
+    doc.fontSize(12).font('Helvetica').fillColor('#333333').text('Cowbell Keystone Trading Ireland Limited\nEmail: info@cb-trading.ie\nWebsite: www.cb-trading.ie');
 
     doc.end();
 

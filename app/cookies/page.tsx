@@ -2,8 +2,19 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy',
+  title: 'Cookie Policy | Cowbell Keystone Trading Ireland',
   description: 'Cookie policy for Cowbell Keystone Trading Ireland Limited — how we use cookies and how to manage your preferences.',
+  alternates: {
+    canonical: 'https://cb-trading.ie/cookies',
+  },
+  openGraph: {
+    title: 'Cookie Policy | Cowbell Keystone Trading Ireland',
+    description: 'Cookie policy for Cowbell Keystone Trading Ireland Limited — how we use cookies and how to manage your preferences.',
+    url: 'https://cb-trading.ie/cookies',
+    siteName: 'Cowbell Keystone Trading Ireland',
+    locale: 'en_IE',
+    type: 'website',
+  },
 }
 
 export default function CookiesPage() {
@@ -34,7 +45,7 @@ export default function CookiesPage() {
 
             <h2 style={{ fontSize: '1.375rem', margin: '2rem 0 1rem' }}>How We Use Cookies</h2>
             <p>
-              Cowbell Keystone Trading Ireland Limited uses cookies on <a href="https://cbtrading.ie" style={{ color: 'var(--green-700)' }}>cbtrading.ie</a>{' '}
+              Cowbell Keystone Trading Ireland Limited uses cookies on <a href="https://cb-trading.ie" style={{ color: 'var(--green-700)' }}>cb-trading.ie</a>{' '}
               for the following purposes:
             </p>
 

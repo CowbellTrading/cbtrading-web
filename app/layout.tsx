@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 import CookieBanner from '@/components/CookieBanner'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cbtrading.ie'),
+  metadataBase: new URL('https://cb-trading.ie'),
   title: {
     default: 'Cowbell Keystone Trading Ireland | Plastic Materials, Packaging & Logistics',
     template: '%s | Cowbell Keystone Trading',
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     'supply chain consulting Ireland',
     'industrial trading Ireland',
     'Cowbell Keystone',
-    'cbtrading',
+    'cb-trading',
   ],
   authors: [{ name: 'Cowbell Keystone Trading Ireland Limited' }],
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: 'https://cbtrading.ie',
+    url: 'https://cb-trading.ie',
     siteName: 'Cowbell Keystone Trading Ireland',
     title: 'Cowbell Keystone Trading Ireland Limited',
     description:
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     apple: '/logo-white.png',
   },
   alternates: {
-    canonical: 'https://cbtrading.ie',
+    canonical: 'https://cb-trading.ie/',
   },
 }
 
@@ -65,28 +65,36 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Corporation",
-              "name": "Cowbell Keystone Trading Ireland Limited",
-              "url": "https://cbtrading.ie",
-              "logo": "https://cbtrading.ie/logo-white.svg",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+353-89-489-8717",
-                "contactType": "customer service",
-                "areaServed": ["IE", "ES", "EU"],
-                "availableLanguage": "en"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Corporation",
+                "name": "Cowbell Keystone Trading Ireland Limited",
+                "url": "https://cb-trading.ie",
+                "logo": "https://cb-trading.ie/logo-white.svg",
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "telephone": "+353-89-489-8717",
+                  "contactType": "customer service",
+                  "areaServed": ["IE", "ES", "EU"],
+                  "availableLanguage": "en"
+                },
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Kilmartin Grove",
+                  "addressLocality": "Dublin",
+                  "postalCode": "D15 AX0H",
+                  "addressCountry": "IE"
+                },
+                "description": "Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation."
               },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Kilmartin Grove",
-                "addressLocality": "Dublin",
-                "postalCode": "D15 AX0H",
-                "addressCountry": "IE"
-              },
-              "description": "Cowbell Keystone Trading Ireland Limited is an Ireland-based trading and consulting company specializing in plastic raw materials, recycled materials, packaging solutions, forklift leasing, manufacturing consultancy, and machinery representation."
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Cowbell Keystone Trading Ireland",
+                "url": "https://cb-trading.ie"
+              }
+            ]),
           }}
         />
       </head>

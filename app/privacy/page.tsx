@@ -2,8 +2,19 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
+  title: 'Privacy Policy | Cowbell Keystone Trading Ireland',
   description: 'Privacy policy for Cowbell Keystone Trading Ireland Limited — how we collect, use, and protect your personal data.',
+  alternates: {
+    canonical: 'https://cb-trading.ie/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | Cowbell Keystone Trading Ireland',
+    description: 'Privacy policy for Cowbell Keystone Trading Ireland Limited — how we collect, use, and protect your personal data.',
+    url: 'https://cb-trading.ie/privacy',
+    siteName: 'Cowbell Keystone Trading Ireland',
+    locale: 'en_IE',
+    type: 'website',
+  },
 }
 
 export default function PrivacyPage() {
@@ -29,7 +40,7 @@ export default function PrivacyPage() {
             <h2 style={{ fontSize: '1.375rem', marginBottom: '1rem' }}>1. Who We Are</h2>
             <p>
               Cowbell Keystone Trading Ireland Limited (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is a company registered in Ireland.
-              Our website is <a href="https://cbtrading.ie" style={{ color: 'var(--green-700)' }}>cbtrading.ie</a> and we can be contacted at{' '}
+              Our website is <a href="https://cb-trading.ie" style={{ color: 'var(--green-700)' }}>cb-trading.ie</a> and we can be contacted at{' '}
               <a href="mailto:info@cb-trading.ie" style={{ color: 'var(--green-700)' }}>info@cb-trading.ie</a>.
             </p>
 

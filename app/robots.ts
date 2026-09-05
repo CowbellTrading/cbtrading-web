@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/studio/', '/api/'],
       },
     ],
-    sitemap: 'https://cbtrading.ie/sitemap.xml',
+    sitemap: 'https://cb-trading.ie/sitemap.xml',
   }
 }

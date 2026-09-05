@@ -66,9 +66,24 @@ const TRUST_FACTORS = [
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getAboutCompany()
+  const title = data?.meta_title || 'About Cowbell Keystone Trading Ireland | Our Story'
+  const description = data?.meta_description || 'Learn about Cowbell Keystone Trading Ireland Limited — our story, mission, values, and the European B2B trading expertise we bring to Ireland and Spain.'
+  const url = 'https://cb-trading.ie/about'
+
   return {
-    title: data?.meta_title || 'About Us',
-    description: data?.meta_description || 'Learn about Cowbell Keystone Trading Ireland Limited — our story, mission, values, and the European B2B trading expertise we bring to Ireland and Spain.',
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'Cowbell Keystone Trading Ireland',
+      locale: 'en_IE',
+      type: 'website',
+    },
   }
 }
 
@@ -86,6 +101,31 @@ export default async function AboutPage() {
 
   return (
     <>
+      {/* ── JSON-LD Breadcrumb Schema ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://cb-trading.ie"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About Us",
+                "item": "https://cb-trading.ie/about"
+              }
+            ]
+          }),
+        }}
+      />
+
       {/* ── Section 1: Hero ── */}
       <section className="page-hero">
         <div className="page-hero-inner container">
@@ -106,7 +146,7 @@ export default async function AboutPage() {
             <div>
               <span className="section-label">Who We Are</span>
               <h2 style={{ marginBottom: '1.5rem', lineHeight: 1.15 }}>{introHeading}</h2>
-              
+
               {introBody ? (
                 <div style={{ fontSize: '1.0625rem', color: 'var(--gray-600)', lineHeight: 1.85, marginBottom: '2.5rem' }}>
                   {Array.isArray(introBody)
@@ -170,7 +210,7 @@ export default async function AboutPage() {
             </p>
             <div className="rule rule-center" style={{ marginTop: '2.5rem' }} />
           </div>
-          
+
           <div className="values-grid">
             {values.map((v: { title: string; description: string }, i: number) => (
               <div className="value-card" key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>

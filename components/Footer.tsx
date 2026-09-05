@@ -122,7 +122,7 @@ export default function Footer() {
             <p className="footer-copy">
               &copy; {year} Cowbell Keystone Trading Ireland Limited. All rights reserved.
             </p>
-            <p className="footer-reg">Registered in Ireland &middot; cbtrading.ie</p>
+            <p className="footer-reg">Registered in Ireland &middot; cb-trading.ie</p>
           </div>
           <nav className="footer-links" aria-label="Legal links">
             <Link href="/privacy">Privacy Policy</Link>
