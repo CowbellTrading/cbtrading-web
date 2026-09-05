@@ -44,12 +44,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logo-dark.png', type: 'image/png' },
-      { url: '/logo.png', type: 'image/png' },
+      { url: '/logo-white.svg', type: 'image/svg+xml' },
+      { url: '/logo-white.png', type: 'image/png' },
       { url: '/favicon.ico' },
     ],
-    shortcut: '/logo-dark.png',
-    apple: '/logo-dark.png',
+    shortcut: '/logo-white.png',
+    apple: '/logo-white.png',
   },
   alternates: {
     canonical: 'https://cbtrading.ie',
